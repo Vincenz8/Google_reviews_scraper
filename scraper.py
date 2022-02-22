@@ -1,25 +1,18 @@
 # third party libraries
 from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
+
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.chrome.webdriver import WebDriver
+
 # standard libraries
 import time
 
-CHROME_EXE = Service("data/chromedriver.exe")
-TOYOTA_LINK = "https://www.google.com/search?gs_ssp=eJzj4tFP1zcsKCk3sSwsTzFgtFI1qDA0NjJNM0kzT7Y0M0k1TTW2MqgwMkwxTTYwTjQwMDY3tDC38BIoya_ML0lUSMvMS8xLzkzMAQDSKBT5&q=toyota+financial&rlz=1C1CHBF_itIT925IT925&oq=toyota+fin&aqs=chrome.1.0i355i433i512j46i175i199i433i512j69i57j69i59j0i512j69i60l3.8054j0j7&sourceid=chrome&ie=UTF-8#lrd=0x1325f4f7c964e5e3:0x21d5c03a00371878,1,,,"
-VOLKS_LINK = "https://www.google.com/search?q=volkswagen+financial+services&rlz=1C1CHBF_itIT925IT925&ei=kHIOYrbsN5-C9u8P0fGCsA0&gs_ssp=eJwFwcEJgDAMAED8Co4g-PFtQksjjuAWSYi1KhUsWMf3ru2mOCFqDkesdYdmGeHzNAdF2NCRBZtpgY-YhTw4UUIR0bV_7-sslaPlYUuZsya-hmLPm9TKDz8vG2Q&oq=volkswagen+finan&gs_lcp=Cgdnd3Mtd2l6EAEYATIFCAAQgAQyEQguEIAEELEDEIMBEMcBEK8BMgUIABCABDIFCAAQgAQyBQgAEIAEMgUIABCABDIFCAAQgAQyBQgAEIAEMgUIABCABDIFCAAQgAQ6BwgAEEcQsAM6DQguEMcBEKMCELADEEM6BwgAELADEEM6CggAEOQCELADGAA6EgguEMcBEKMCEMgDELADEEMYAToVCC4QxwEQowIQ1AIQyAMQsAMQQxgBOgcIABCxAxBDOgsIABCABBCxAxCDAToECAAQQzoICAAQgAQQsQM6CAgAEIAEEMkDOgsILhCABBDHARCvAUoECEEYAEoECEYYAVD2AVitGmCeKGgBcAF4AIABf4gB_gOSAQM1LjGYAQCgAQHIARPAAQHaAQYIABABGAnaAQYIARABGAg&sclient=gws-wiz#lrd=0x4786c10f137e6e87:0x7aab7403bc71bbbc,1,,,"
-
-ID_REVIEW_FORM = "reviewSort"
-N_REVIEW = "z5jxId"
-REVIEW_CLASS = "Jtu6Td"
-VOLKS_CLASS = "review-snippet"
-
-FILENAME = "data/TOYOTA_RECENSIONI.txt"
+# local libraries
+from config_scraper import SCRAPE_CONF
 
 def get_number_reviews(driver: WebDriver, by, value) -> int:
     
@@ -67,29 +60,30 @@ def review_to_file(file: str, reviews: WebElement):
 
 def main():
     
-    driver = webdriver.Chrome(service=CHROME_EXE)
-    driver.get(TOYOTA_LINK)
-    print(type(driver))
+    driver = webdriver.Chrome(service=SCRAPE_CONF["chrome_driver"])
+    driver.get(SCRAPE_CONF["link"])
+    
     # agree cookies
     xpath_accept_button = '//*[@id="L2AGLb"]/div'
     driver.find_element(by="xpath",value= xpath_accept_button).click()
     
     # waiting for id to show up
-    review_div = get_reviews_div(driver=driver, by="id", value=ID_REVIEW_FORM )
+    review_div = get_reviews_div(driver=driver, by="id", value=SCRAPE_CONF["id_review_form"])
     print(type(review_div))
-    n_reviews = get_number_reviews(driver=driver, by="class name", value=N_REVIEW)
+    n_reviews = get_number_reviews(driver=driver, by="class name", value=SCRAPE_CONF["n_reviews_class_name"])
     
     # loading all reviews
-    scrollable_div = driver.find_element(by="class name", value="review-dialog-list")
+    scrollable_div = driver.find_element(by="class name", value=SCRAPE_CONF["scrollable_div_class_name"])
     scroll_div(1,driver, scrollable_div, n_reviews)
     
     # collect all reviews  
-    reviews = get_reviews(REVIEW_CLASS, reviews_form=review_div, by="class name")
+    reviews = get_reviews(*SCRAPE_CONF["reviews_class_names"], reviews_form=review_div, by="class name")
     
     # print all reviews to file
-    review_to_file(FILENAME, reviews)
+    review_to_file(SCRAPE_CONF["reviews_file"], reviews)
         
-    print("TOMBOLA COMPA")
+    print("FINISHED")
+    
     driver.quit()  
 
        
