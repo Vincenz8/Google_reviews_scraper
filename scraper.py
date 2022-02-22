@@ -1,10 +1,8 @@
 # third party libraries
 from selenium import webdriver
-
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.chrome.webdriver import WebDriver
 
@@ -14,7 +12,7 @@ import time
 # local libraries
 from config_scraper import SCRAPE_CONF
 
-def get_number_reviews(driver: WebDriver, by, value) -> int:
+def get_number_reviews(driver: WebDriver, by, value) -> float:
     
     try:
         n_reviews = WebDriverWait(driver, 5).until(EC.presence_of_element_located((by, value)))
@@ -23,7 +21,7 @@ def get_number_reviews(driver: WebDriver, by, value) -> int:
         print("NON HO TROVATO IL NUMERO")
         driver.quit()
         
-    n_reviews = int(n_reviews.text.split(" ")[0])    
+    n_reviews = float(n_reviews.text.strip().split(" ")[0])    
     
     return n_reviews
 
@@ -52,7 +50,7 @@ def get_reviews(*values: str, reviews_form: WebElement, by: str) -> WebElement:
         
     return tot_reviews
 
-def review_to_file(file: str, reviews: WebElement):
+def review_to_file(file: str, reviews: WebElement) -> None:
     
     with open(file= file, mode="w", encoding="utf-8") as rev_file:
         for i, review in enumerate(reviews): 
@@ -69,7 +67,6 @@ def main():
     
     # waiting for id to show up
     review_div = get_reviews_div(driver=driver, by="id", value=SCRAPE_CONF["id_review_form"])
-    print(type(review_div))
     n_reviews = get_number_reviews(driver=driver, by="class name", value=SCRAPE_CONF["n_reviews_class_name"])
     
     # loading all reviews
