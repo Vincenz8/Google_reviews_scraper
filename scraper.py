@@ -11,9 +11,14 @@ from selenium.webdriver.chrome.service import Service
 # standard libraries
 import time
 import pickle
+import json
 
-# local libraries
-from config_scraper import SCRAPE_CONF
+CONFIG_FILE = "data/config_scraper.json"
+
+def set_config(file: str) -> dict:
+    with open(file, "r") as config_file:
+        config_scraper = json.load(config_file)
+    return config_scraper
 
 def get_number_reviews(driver: WebDriver, by, value) -> float:
     
@@ -26,7 +31,6 @@ def get_number_reviews(driver: WebDriver, by, value) -> float:
         
     n_reviews = n_reviews.text.strip()
     n_reviews = n_reviews.split(" ")[0]
-    print(n_reviews)
     
     return float(n_reviews)
 
@@ -61,28 +65,30 @@ def review_to_file(file: str, reviews: WebElement) -> None:
         pickle.dump(obj=reviews, file=rev_file)       
 
 def main():
+    # set configuration
+    scrape_conf = set_config(file=CONFIG_FILE)
     
     driver = webdriver.Chrome(service=Service("data/chromedriver.exe"))
-    driver.get(SCRAPE_CONF["link"])
+    driver.get(scrape_conf["link"])
     
     # agree cookies
     xpath_accept_button = '//*[@id="L2AGLb"]/div'
     driver.find_element(by="xpath",value= xpath_accept_button).click()
     
     # waiting for id to show up
-    review_div = get_reviews_div(driver=driver, by="id", value=SCRAPE_CONF["id_review_form"])
-    n_reviews = get_number_reviews(driver=driver, by="class name", value=SCRAPE_CONF["n_reviews_class_name"])
+    review_div = get_reviews_div(driver=driver, by="id", value=scrape_conf["id_review_form"])
+    n_reviews = get_number_reviews(driver=driver, by="class name", value=scrape_conf["n_reviews_class_name"])
     
     # loading all reviews
-    scrollable_div = driver.find_element(by="class name", value=SCRAPE_CONF["scrollable_div_class_name"])
+    scrollable_div = driver.find_element(by="class name", value=scrape_conf["scrollable_div_class_name"])
     scroll_div(1,driver, scrollable_div, n_reviews)
     
     # collect all reviews  
-    reviews = get_reviews(*SCRAPE_CONF["reviews_class_names"], reviews_form=review_div, by="class name")
+    reviews = get_reviews(*scrape_conf["reviews_class_names"], reviews_form=review_div, by="class name")
     
     # pickle raw reviews
-    review_to_file(SCRAPE_CONF["reviews_file"], reviews)
-    # pickle.dump(obj=reviews, file=SCRAPE_CONF["reviews_file"])    
+    review_to_file(scrape_conf["reviews_file"], reviews)
+     
     print("FINISHED")
     
     driver.quit()
