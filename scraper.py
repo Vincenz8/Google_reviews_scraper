@@ -16,17 +16,33 @@ import json
 CONFIG_FILE = "data/config_scraper.json"
 
 def set_config(file: str) -> dict:
+    """Importing Json with parameters for web scraper.
+
+    Args:
+        file (str): Json file
+
+    Returns:
+        dict: parameters
+    """
     with open(file, "r") as config_file:
         config_scraper = json.load(config_file)
     return config_scraper
 
 def get_number_reviews(driver: WebDriver, by, value) -> float:
-    
+    """Get number of reviews from web page
+
+    Args:
+        driver (WebDriver): web driver object
+        by (_type_): html tag
+        value (_type_): value of html tag
+
+    Returns:
+        float: number of reviews
+    """
     try:
         n_reviews = WebDriverWait(driver, 15).until(EC.presence_of_element_located((by, value)))
     except Exception as e:
         print(e)
-        print("NON HO TROVATO IL NUMERO")
         driver.quit()
         
     n_reviews = n_reviews.text.strip()
@@ -35,23 +51,49 @@ def get_number_reviews(driver: WebDriver, by, value) -> float:
     return float(n_reviews)
 
 def get_reviews_div(driver: WebDriver, by: str, value: str) -> WebElement:
-    
+    """Get reviews's box from web page
+
+    Args:
+        driver (WebDriver): web driver
+        by (str): html tag
+        value (str): value of html tag
+
+    Returns:
+        WebElement: reviews'box
+    """
     try:
         review_div = WebDriverWait(driver, 5).until(EC.presence_of_element_located((by, value)))
     except Exception as e:
-        print("NON HO TROVATO IL FORM CON LE RECENSIONI")
+        print(e)
         driver.quit()
+        
     return review_div
 
-def scroll_div(sec: float, driver: WebDriver, scrollable_div: WebElement, n_reviews: int) -> None:
-    
-    for i in range(0,(round(n_reviews/10 - sec))):
+def scroll_div(sec: float, driver: WebDriver, scrollable_div: WebElement, tot_reviews: float) -> None:
+    """Scroll reviews
+
+    Args:
+        sec (float): scrolling rate
+        driver (WebDriver): web driver
+        scrollable_div (WebElement): scrollable element of webpage
+        tot_reviews (int): total number of reviews
+    """
+    for i in range(0,(round(tot_reviews/10 - sec))):
         driver.execute_script('arguments[0].scrollTop = arguments[0].scrollHeight', 
                               scrollable_div)
         time.sleep(sec)
 
 def get_reviews(*values: str, reviews_form: WebElement, by: str) -> list[str]:
-    
+    """Return a list of reviews
+
+    Args:
+        *values: value/values of html tag
+        reviews_form (WebElement): reviews form
+        by (str): html tag
+        
+    Returns:
+        list[str]: _description_
+    """
     tot_reviews = []
     for value in values:
         reviews = reviews_form.find_elements(by=by, value= value)
