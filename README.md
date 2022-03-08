@@ -1,5 +1,5 @@
 # ***Web Scraper di Recensioni Google***
-<img src="data/google_img.png" alt="MarineGEO circle logo" style="height: 150px; width:400px;"/>
+<img src="data/img_doc/google_img.png" alt="MarineGEO circle logo" style="height: 150px; width:400px;"/>
 
 >La seguenta guida illustra come utilizzare e configurare il **Web Scraper** realizzato con [*Selenium*](https://www.selenium.dev/).
 > 
