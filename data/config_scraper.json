@@ -1,8 +1,8 @@
 {
-    "link": "https://www.google.com/search?q=banca+psa+financial+services&rlz=1C1CHBF_itIT925IT925&oq=banca+&aqs=chrome.2.69i57j46i131i199i291i433i512j69i59j46i131i199i433i465i512j46i199i291i433i512j46i131i199i291i433i512l4j0i271.3199j0j7&sourceid=chrome&ie=UTF-8#lrd=0x4786c1b50bc5bfd5:0x9b57746c8f648a59,1,,,",
-    "id_review_form": "reviewSort",
-    "scrollable_div_class_name": "review-dialog-list",
-    "n_reviews_class_name": "z5jxId",
-    "reviews_class_names": ["Jtu6Td", "review-snippet"],
-    "reviews_file": "data/raw_reviews/bancapsa_raw_reviews"
+    "link": "<link_pagina_recensioni>",
+    "n_reviews_class_name": "<elemento_numero_recensioni>",
+    "id_review_form": "<elemento_contenente_recensioni>",
+    "scrollable_div_class_name": "<elemento_scrollabile>",
+    "reviews_class_names": ["<elemento_recensioni>", "<elemento recensioni>", "<...>"],
+    "reviews_file": "<nome file>"
 }

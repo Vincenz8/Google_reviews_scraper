@@ -40,7 +40,12 @@ Per una guida più dettagliata su Anaconda e gli ambienti virtuali vi consiglio 
 
 Prima di utilizzare il Web Scraper è necessario svolgere un primo lavoro di ***analisi*** della pagina di recensioni.
 
-In particolare bisogna raccogliere tutti gli ***elementi HTML*** della pagina necessari al web scraper per funzionare.
+In particolare bisogna raccogliere tutti gli ***elementi HTML*** della pagina necessari al web scraper per funzionare, in questo caso dovremmo raccogliere ***4*** elementi:
+>
+>1. elemento contenente il numero totale di recensioni
+>2. elemento contenente le recensioni
+>3. elemento scrollabile 
+>4. elemento contenente una recensione
 
 Prima di tutto ci serve l'***URL*** della pagina, il web scraper si basa su questa pagina di recensioni:
 
@@ -50,23 +55,54 @@ La pagina qui sopra,  la si può trovare cliccando dove indica il rettangolo ros
 
 <img src="data/img_doc/reviews.png" alt="home reviews" style="height: 400px; width:1000px;"/>
 
-Successivamente, grazie allo strumento "Ispeziona" del motore di ricerca, dobbiamo recuperare l'elemento contenente il numero di recensioni:
+---
+
+### *Numero totale di recensioni*
 <a id="n_rev"></a>
+Grazie allo strumento "Ispeziona" del motore di ricerca, dobbiamo recuperare l'elemento contenente il numero di recensioni:
 
 <img src="data/img_doc/n_reviews.png" alt="tot reviews" style="height: 400px; width:1000px;"/>
 
  In questo caso teniamo come elemento di riferimento la classe, di conseguenza dobbiamo tenere il valore :
 >***class = "z5jxId"*** 
-
-Poi abbiamo bisogno dell'elemento contenente le recensioni:
+---
+### *Box contenente le recensioni*
 <a id="box_review"></a>
+Poi abbiamo bisogno dell'elemento contenente le recensioni:
 
-<img src="data/img_doc/box_review.png" alt="tot reviews" style="height: 400px; width:1000px;"/>
+
+<img src="data/img_doc/box_review.png" alt="reviews" style="height: 400px; width:1000px;"/>
 
 Questa volta, siccome è presente, terremo in considerazione l'***ID*** siccome identifica univocamenteun elemento di una pagina HTML:
 
 >***id = "reviewSort"***
+---
 
+### *Elemento scrollabile* 
+Seguendo la stessa procedure dei punti precedenti:
+<a id="scroll"></a>
 
+<img src="data/img_doc/scroll_div.png" alt="scroll div" style="height: 400px; width:1000px;"/>
 
+Teniamo in considerazione:
 
+> ***class="review-dialog-list"***
+---
+### *Box contenente una recensione*
+<a id="review"></a>
+
+<img src="data/img_doc/text_rev.png" alt="text rev" style="height: 400px; width:1000px;"/>
+
+Nel caso dei singoli box contenenti le recensioni, è possibile che ci siano più nomi possibili per le classi, di conseguenza necessità di un analisi più approfondita.
+
+Valori da considerare:
+> ***class="review-snippet"***
+
+Una volta raccolti tutti questi elementi bisogna configurare il file [JSON](https://www.json.org/json-it.html) "**config_scraper.json**".
+
+---
+<a id="conf"></a>
+## ***Configurazione JSON file***
+Come anticipato nella sezione precedente, bisogna configurare il file json che si presenta in questo modo:
+
+<img src="data/img_doc/json_conf.png" alt="json file" style="height: 400px; width:1000px;"/>
