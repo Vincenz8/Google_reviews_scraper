@@ -1,5 +1,5 @@
 # ***Web Scraper di Recensioni Google***
-<img src="data/img_doc/google_img.png" alt="Google review logo" style="height: 150px; width:400px;"/>
+<img src="data/img_doc/google_img.png" alt="Google review logo" style="height: 300px; width:1000px;"/>
 
 >La seguenta guida illustra come utilizzare e configurare il **Web Scraper** realizzato con [*Selenium*](https://www.selenium.dev/).
 > 
@@ -16,7 +16,7 @@
 ---
 <a id="inst"></a>
 ## ***Installazione***
-Per utilizzare il ***Web Scraper*** è necessario avere una versione di [Python](https://www.python.org/) installata sul proprio dispositivo.
+Per utilizzare il ***Web Scraper*** è necessario avere una versione di [Python](https://www.python.org/) installata sul proprio dispositivo, io ho utilizzato la versione ***3.9.7***.
 
 Per comodità consiglio di installare [Anaconda](https://www.anaconda.com/products/individual), in modo da gestire più facilmente il setup di un ***ambiente virtuale***.
 
@@ -44,7 +44,7 @@ In particolare bisogna raccogliere tutti gli ***elementi HTML*** della pagina ne
 
 Prima di tutto ci serve l'***URL*** della pagina, il web scraper si basa su questa pagina di recensioni:
 
-<img src="data/img_doc/pagina_rev.png" alt="pagina reviews" style="height: 200px; width:400px;"/>
+<img src="data/img_doc/pagina_rev.png" alt="pagina reviews" style="height: 400px; width:1000px;"/>
 
 
 
