@@ -46,6 +46,27 @@ Prima di tutto ci serve l'***URL*** della pagina, il web scraper si basa su ques
 
 <img src="data/img_doc/pagina_rev.png" alt="pagina reviews" style="height: 400px; width:1000px;"/>
 
+La pagina qui sopra,  la si può trovare cliccando dove indica il rettangolo rosso:
+
+<img src="data/img_doc/reviews.png" alt="home reviews" style="height: 400px; width:1000px;"/>
+
+Successivamente, grazie allo strumento "Ispeziona" del motore di ricerca, dobbiamo recuperare l'elemento contenente il numero di recensioni:
+<a id="n_rev"></a>
+
+<img src="data/img_doc/n_reviews.png" alt="tot reviews" style="height: 400px; width:1000px;"/>
+
+ In questo caso teniamo come elemento di riferimento la classe, di conseguenza dobbiamo tenere il valore :
+>***class = "z5jxId"*** 
+
+Poi abbiamo bisogno dell'elemento contenente le recensioni:
+<a id="box_review"></a>
+
+<img src="data/img_doc/box_review.png" alt="tot reviews" style="height: 400px; width:1000px;"/>
+
+Questa volta, siccome è presente, terremo in considerazione l'***ID*** siccome identifica univocamenteun elemento di una pagina HTML:
+
+>***id = "reviewSort"***
+
 
 
 
