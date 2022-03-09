@@ -44,7 +44,7 @@ In particolare bisogna raccogliere tutti gli ***elementi HTML*** della pagina ne
 
 Prima di tutto ci serve l'***URL*** della pagina, il web scraper si basa su questa pagina di recensioni:
 
-<img src="data/img_doc/Paginarev.PNG" alt="pagina reviews" style="height: 200px; width:400px;"/>
+<img src="data/img_doc/pagina_rev.png" alt="pagina reviews" style="height: 200px; width:400px;"/>
 
 
 
