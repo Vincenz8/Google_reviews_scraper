@@ -8,10 +8,9 @@
 
 ## ***Indice***
 - [Installazione](#inst)
-- [Modalità d'uso](#use)
+- [Analisi Pagina Web](#use)
 - [Configurazione JSON file ](#conf)
 - [Avvio Programma](#start)
-- [Conclusioni](#end)
 
 ---
 <a id="inst"></a>
@@ -36,7 +35,7 @@ Per una guida più dettagliata su Anaconda e gli ambienti virtuali vi consiglio 
 
 ---
 <a id="use"></a>
-## ***Modalita d'uso***
+## ***Analisi pagina Web***
 
 Prima di utilizzare il Web Scraper è necessario svolgere un primo lavoro di ***analisi*** della pagina di recensioni.
 
@@ -47,6 +46,7 @@ In particolare bisogna raccogliere tutti gli ***elementi HTML*** della pagina ne
 >3. elemento scrollabile 
 >4. elemento contenente una recensione
 
+<a id="url"></a>
 Prima di tutto ci serve l'***URL*** della pagina, il web scraper si basa su questa pagina di recensioni:
 
 <img src="data/img_doc/pagina_rev.png" alt="pagina reviews" style="height: 400px; width:1000px;"/>
@@ -106,3 +106,22 @@ Una volta raccolti tutti questi elementi bisogna configurare il file [JSON](http
 Come anticipato nella sezione precedente, bisogna configurare il file json che si presenta in questo modo:
 
 <img src="data/img_doc/json_conf.png" alt="json file" style="height: 400px; width:1000px;"/>
+
+Bisognerà semplicemente sostituire i vari campi con i dati raccolti in precedenza:
+- "link": [url](#url)
+- "n_review_class_name": [numero recensioni](#n_rev)
+- "id_review_form": [box con recensioni](#box_review)
+- "scrollable_div_class_name": [div_scrollabile](#scroll)
+
+Infine bisognerà scegliere il nome del file con cui vorremo salvare le nostre recensioni, si raccomanda di utilizzare l'estensione ***.pickle***.
+
+---
+<a id="start"></a>
+## ***Avvio programma***
+Per avviare il programma, si può utilizzare la linea di comando(stando all'interno della cartella):
+
+    python scraper.py
+
+Oppure con il sepmlice tasto ***Run*** del proprio ***Ide*** di preferenza.
+
+
