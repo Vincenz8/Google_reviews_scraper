@@ -122,6 +122,6 @@ Per avviare il programma, si può utilizzare la linea di comando(stando all'inte
 
     python scraper.py
 
-Oppure con il sepmlice tasto ***Run*** del proprio ***Ide*** di preferenza.
+Oppure con il semplice tasto ***Run*** del proprio ***Ide*** di preferenza.
 
 
