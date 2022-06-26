@@ -1,127 +1,71 @@
-# ***Web Scraper di Recensioni Google***
+# ***Scraper of Google's reviews***
 <img src="data/img_doc/google_img.png" alt="Google review logo" style="height: 300px; width:1000px;"/>
 
->La seguenta guida illustra come utilizzare e configurare il **Web Scraper** realizzato con [*Selenium*](https://www.selenium.dev/).
+>This guide illustrate how to use and configure this **Web Scraper** made with [*Selenium*](https://www.selenium.dev/).
 > 
->Il programma è stato sviluppato per raccogliere dati testuali per un progetto di ***Natural Language Processing*** svolto durante il mio periodo di stage presso [*BSdesign Srl*](https://www.bsdesign.eu/).
+>This program was developed for gathering textual data for a ***Natural Language Processing*** project during my time at [*BSD design*](https://www.bsdesign.eu/).
 ---
 
-## ***Indice***
-- [Installazione](#inst)
-- [Analisi Pagina Web](#use)
-- [Configurazione JSON file ](#conf)
-- [Avvio Programma](#start)
+## ***Contents***
+- [Set up](#inst)
+- [Web page](#use)
+- [Configuring Json file](#conf)
+- [Run program](#start)
 
 ---
 <a id="inst"></a>
-## ***Installazione***
-Per utilizzare il ***Web Scraper*** è necessario avere una versione di [Python](https://www.python.org/) installata sul proprio dispositivo, io ho utilizzato la versione ***3.9.7***.
+## ***Set up***
+First, you need to install [Python](https://www.python.org/), i've used ***3.9.7*** version.
 
-Per comodità consiglio di installare [Anaconda](https://www.anaconda.com/products/individual), in modo da gestire più facilmente il setup di un ***ambiente virtuale***.
+I recommend installing [Anaconda](https://www.anaconda.com/products/individual) because you can manage ***virtual environments*** more easily.
 
-Dopo aver installato Anaconda, create un ambiente virtuale con il seguente comando:
+After installing Anaconda, you can create a virtual environment with the folllowing command from terminal:
 
-    conda create -n <Nome Ambiente> python=3.9.7
+    conda create -n <Env's name> python=3.9.7
 
-Successivamente attivate l'ambiente con:
+Activate it with:
 
-    conda activate <Nome Ambiente>
+    conda activate <Env's name>
 
-Infine dopo esservi collocati nella cartella da linea di comando, eseguite il seguente comando per installare tutte le dipendenze necessarie per il programma:
+Then install dependences with:
 
     pip install -r requirements.txt
 
-Per una guida più dettagliata su Anaconda e gli ambienti virtuali vi consiglio questo [sito](https://www.geeksforgeeks.org/set-up-virtual-environment-for-python-using-anaconda/).
+More details on Anaconda and virtual environments at this [site](https://www.geeksforgeeks.org/set-up-virtual-environment-for-python-using-anaconda/).
 
 ---
 <a id="use"></a>
-## ***Analisi pagina Web***
+## ***Web page***
 
-Prima di utilizzare il Web Scraper è necessario svolgere un primo lavoro di ***analisi*** della pagina di recensioni.
-
-In particolare bisogna raccogliere tutti gli ***elementi HTML*** della pagina necessari al web scraper per funzionare, in questo caso dovremmo raccogliere ***4*** elementi:
->
->1. elemento contenente il numero totale di recensioni
->2. elemento contenente le recensioni
->3. elemento scrollabile 
->4. elemento contenente una recensione
-
-<a id="url"></a>
-Prima di tutto ci serve l'***URL*** della pagina, il web scraper si basa su questa pagina di recensioni:
+This scraper works only on this type of page :
 
 <img src="data/img_doc/pagina_rev.png" alt="pagina reviews" style="height: 400px; width:1000px;"/>
 
-La pagina qui sopra,  la si può trovare cliccando dove indica il rettangolo rosso:
+You can find the above page by clicking where indicated by the red box :
 
 <img src="data/img_doc/reviews.png" alt="home reviews" style="height: 400px; width:1000px;"/>
 
----
-
-### *Numero totale di recensioni*
-<a id="n_rev"></a>
-Grazie allo strumento "Ispeziona" del motore di ricerca, dobbiamo recuperare l'elemento contenente il numero di recensioni:
-
-<img src="data/img_doc/n_reviews.png" alt="tot reviews" style="height: 400px; width:1000px;"/>
-
- In questo caso teniamo come elemento di riferimento la classe, di conseguenza dobbiamo tenere il valore :
->***class = "z5jxId"*** 
----
-### *Box contenente le recensioni*
-<a id="box_review"></a>
-Poi abbiamo bisogno dell'elemento contenente le recensioni:
-
-
-<img src="data/img_doc/box_review.png" alt="reviews" style="height: 400px; width:1000px;"/>
-
-Questa volta, siccome è presente, terremo in considerazione l'***ID*** siccome identifica univocamenteun elemento di una pagina HTML:
-
->***id = "reviewSort"***
----
-
-### *Elemento scrollabile* 
-Seguendo la stessa procedure dei punti precedenti:
-<a id="scroll"></a>
-
-<img src="data/img_doc/scroll_div.png" alt="scroll div" style="height: 400px; width:1000px;"/>
-
-Teniamo in considerazione:
-
-> ***class="review-dialog-list"***
----
-### *Box contenente una recensione*
-<a id="review"></a>
-
-<img src="data/img_doc/text_rev.png" alt="text rev" style="height: 400px; width:1000px;"/>
-
-Nel caso dei singoli box contenenti le recensioni, è possibile che ci siano più nomi possibili per le classi, di conseguenza necessità di un analisi più approfondita.
-
-Valori da considerare:
-> ***class="review-snippet"***
-
-Una volta raccolti tutti questi elementi bisogna configurare il file [JSON](https://www.json.org/json-it.html) "**config_scraper.json**".
 
 ---
 <a id="conf"></a>
-## ***Configurazione JSON file***
-Come anticipato nella sezione precedente, bisogna configurare il file json che si presenta in questo modo:
+## ***Configuring JSON file***
+Here we can see how the Json file present itself:
 
 <img src="data/img_doc/json_conf.png" alt="json file" style="height: 400px; width:1000px;"/>
 
-Bisognerà semplicemente sostituire i vari campi con i dati raccolti in precedenza:
-- "link": [url](#url)
-- "n_review_class_name": [numero recensioni](#n_rev)
-- "id_review_form": [box con recensioni](#box_review)
-- "scrollable_div_class_name": [div_scrollabile](#scroll)
+You only need to change:
+- "link": url
+- "reviews_file": filename.pickle
 
-Infine bisognerà scegliere il nome del file con cui vorremo salvare le nostre recensioni, si raccomanda di utilizzare l'estensione ***.pickle***.
+Remember to always choose ***.pickle*** format.
 
 ---
 <a id="start"></a>
-## ***Avvio programma***
-Per avviare il programma, si può utilizzare la linea di comando(stando all'interno della cartella):
+## ***Run program***
+From terminal:
 
     python scraper.py
 
-Oppure con il semplice tasto ***Run*** del proprio ***Ide*** di preferenza.
+Or from the start button of your preferred ***IDE***.
 
 

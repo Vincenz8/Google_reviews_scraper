@@ -11,7 +11,7 @@ if __name__ == "__main__":
     reviews = load_reviews("data/raw_reviews/opel_raw_rev.pickle")
 
     for rev in reviews:
-        print(rev if rev != "" else "vuota")
+        print(rev if rev != "" else "empty")
         print("--------------")
 
     print(len(reviews))

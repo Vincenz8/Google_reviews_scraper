@@ -1,8 +1,0 @@
-{
-    "link": "https://www.google.com/search?q=opel+financial+services&rlz=1C1CHBF_itIT925IT925&ei=9XtBYrHBBr6W9u8PqaqO2AQ&gs_ssp=eJzj4tZP1zcsrzSrLDIwMmC0UjWoMDQ2MrVITEsyTzG0SLU0T7MyqDBOs0xKNjMxTTMwSDY2NjHyEs8vSM1RSMvMS8xLzkzMUShOLSrLTE4tBgBVsBeJ&oq=opel+financial+services&gs_lcp=Cgdnd3Mtd2l6EAMYADIKCC4QxwEQrwEQQzIFCAAQgAQyBQgAEIAEMgUIABCABDIFCAAQgAQyBggAEAcQHjIFCAAQgAQyBQgAEIAEMgQIABAeMgQIABAeOggIABAHEAoQHjoECAAQDToKCC4QxwEQrwEQDUoECEEYAEoECEYYAFAAWLIDYJISaABwAXgAgAFtiAHvApIBAzMuMZgBAKABAcABAQ&sclient=gws-wiz#lrd=0x13258afb7d18e97f:0x3f9bc645f00c3342,1,,,",
-    "n_reviews_class_name": "z5jxId",
-    "id_review_form": "reviewSort",
-    "scrollable_div_class_name": "review-dialog-list",
-    "reviews_class_names": ["review-full-text", "Jtu6Td"],
-    "reviews_file": "data/raw_reviews/opel_raw_rev.pickle"
-}

@@ -10,7 +10,7 @@ import time
 import json
 import pickle
 
-CONFIG_FILE = "data/config_scraper.json"
+CONFIG_FILE = "conf/config_scraper.json"
 
 
 def set_config(file: str) -> dict:
@@ -64,7 +64,7 @@ def get_reviews(*class_name: str, html_source: str) -> list[str]:
     Args:
         html_source: html source code
         *class_name: value/values of html tag
-        
+
     Returns:
         list[str]: _description_
     """
@@ -101,17 +101,20 @@ def main():
 
     html_source = driver.page_source
 
-    n_reviews = get_number_reviews(html_source=html_source, class_name=scrape_conf["n_reviews_class_name"])
+    n_reviews = get_number_reviews(
+        html_source=html_source, class_name=scrape_conf["n_reviews_class_name"])
     print(n_reviews)
 
     # loading all reviews
-    scrollable_div = driver.find_element(by="class name", value=scrape_conf["scrollable_div_class_name"])
+    scrollable_div = driver.find_element(
+        by="class name", value=scrape_conf["scrollable_div_class_name"])
     scroll_div(1, driver, scrollable_div, n_reviews)
 
     html_source = driver.page_source
 
     # collect all reviews
-    reviews = get_reviews(*scrape_conf["reviews_class_names"], html_source=html_source)
+    reviews = get_reviews(
+        *scrape_conf["reviews_class_names"], html_source=html_source)
 
     # pickle raw reviews
     review_to_file(scrape_conf["reviews_file"], reviews)
